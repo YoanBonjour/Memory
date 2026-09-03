@@ -10,7 +10,25 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-gap: 10px;
-  border: 1px solid black;
+  grid-gap: 20px;
+  //   border: 1px solid black;
+  //   border-radius: 10px;
+}
+
+.card {
+  border: 2px solid black;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  cursor: pointer;
+  box-shadow: 7px 7px 0px rgba(0, 0, 0, 1);
+}
+
+#cheat {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  font-size: 30px;
 }
