@@ -3,6 +3,10 @@
 @import "layout";
 @import "modules/example";
 
+body {
+  background-color: #fcf1e5;
+}
+
 #board {
   padding: 50px;
   width: 100vw;
@@ -31,4 +35,12 @@
   top: 10px;
   left: 50%;
   font-size: 30px;
+}
+
+.hidden {
+  background-color: #e6b258;
+}
+
+.shown {
+  background-color: #efd7ae;
 }

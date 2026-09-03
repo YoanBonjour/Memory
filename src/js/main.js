@@ -48,6 +48,7 @@ const shuffle = (array) => {
 shuffle(emojis).forEach((emoji) => {
   const card = document.createElement("div");
   card.classList.add("card");
+  card.classList.add("hidden");
 
   card.dataset.emoji = emoji;
 
@@ -111,3 +112,21 @@ setInterval(() => {
     });
   }
 }, 100);
+
+let firstChoice = null;
+let secondChoice = null;
+
+addEventListener("click", (event) => {
+  if (event.target.matches(".card")) {
+    if (firstChoice === null) {
+      firstChoice = card;
+      event.target.classList.remove("hidden");
+      event.target.innerText = event.target.dataset.emoji;
+    } else if (secondChoice === null) {
+      secondChoice = card;
+      event.target.classList.remove("hidden");
+      event.target.innerText = event.target.dataset.emoji;
+    } else {
+    }
+  }
+});
