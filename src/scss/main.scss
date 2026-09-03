@@ -1,0 +1,16 @@
+@import "font";
+@import "base";
+@import "layout";
+@import "modules/example";
+
+#board {
+  padding: 50px;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
