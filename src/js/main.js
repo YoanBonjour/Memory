@@ -1,6 +1,7 @@
 const board = document.querySelector("#board");
 const card = document.createElement("div");
 const cheat = document.querySelector("#cheat");
+const scoreText = document.querySelector("#score");
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
@@ -115,17 +116,51 @@ setInterval(() => {
 
 let firstChoice = null;
 let secondChoice = null;
+let cardsLeftToMatch = 12;
+let score = 0;
+scoreText.innerText = score;
 
 addEventListener("click", (event) => {
   if (event.target.matches(".card")) {
     if (firstChoice === null) {
-      firstChoice = card;
+      firstChoice = event.target;
+      const firstCard = firstChoice;
       event.target.classList.remove("hidden");
+      event.target.classList.add("used");
       event.target.innerText = event.target.dataset.emoji;
+      console.log("first");
     } else if (secondChoice === null) {
-      secondChoice = card;
+      secondChoice = event.target;
       event.target.classList.remove("hidden");
       event.target.innerText = event.target.dataset.emoji;
+      console.log("second");
+
+      if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
+        cardsLeftToMatch = cardsLeftToMatch - 1;
+        score = score + 1;
+        scoreText.innerText = score;
+        const firstCard = firstChoice;
+        const secondCard = secondChoice;
+        firstCard.classList.add("used");
+        secondCard.classList.add("used");
+        if (cardsLeftToMatch === 0) {
+          window.alert("Bravo !");
+        }
+        firstChoice = null;
+        secondChoice = null;
+      } else {
+        const firstCard = firstChoice;
+        const secondCard = secondChoice;
+
+        setTimeout(() => {
+          firstCard.innerText = "";
+          secondCard.innerText = "";
+          firstCard.classList.add("hidden");
+          secondCard.classList.add("hidden");
+          firstChoice = null;
+          secondChoice = null;
+        }, 1000);
+      }
     } else {
     }
   }
