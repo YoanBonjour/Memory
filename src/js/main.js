@@ -2,6 +2,8 @@ const board = document.querySelector("#board");
 const card = document.createElement("div");
 const cheat = document.querySelector("#cheat");
 const scoreText = document.querySelector("#score");
+const attemptsText = document.querySelector("#attempts");
+const restarter = document.querySelector("button");
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
@@ -118,6 +120,8 @@ let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = 12;
 let score = 0;
+let attempts = 0;
+attemptsText.innerText = attempts;
 scoreText.innerText = score;
 
 addEventListener("click", (event) => {
@@ -133,6 +137,8 @@ addEventListener("click", (event) => {
       secondChoice = event.target;
       event.target.classList.remove("hidden");
       event.target.innerText = event.target.dataset.emoji;
+      attempts = attempts + 1;
+      attemptsText.innerText = attempts;
       console.log("second");
 
       if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
@@ -156,6 +162,7 @@ addEventListener("click", (event) => {
           firstCard.innerText = "";
           secondCard.innerText = "";
           firstCard.classList.add("hidden");
+          firstCard.classList.remove("used");
           secondCard.classList.add("hidden");
           firstChoice = null;
           secondChoice = null;
@@ -164,4 +171,11 @@ addEventListener("click", (event) => {
     } else {
     }
   }
+});
+
+restarter.addEventListener("click", () => {
+  addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+  });
+  location.reload();
 });
