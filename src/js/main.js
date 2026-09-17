@@ -4,12 +4,16 @@ const cheat = document.querySelector("#cheat");
 const scoreText = document.querySelector("#score");
 const attemptsText = document.querySelector("#attempts");
 const restarter = document.querySelector("button");
+const firstPlayer = document.querySelector("#first-player");
+const secondPlayer = document.querySelector("#second-player");
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
 let Execute2 = false;
 let Execute3 = false;
 let Execute4 = false;
+let Player1 = true;
+let Player2 = false;
 const emojis = [
   "👄",
   "🧚‍♀️",
@@ -121,6 +125,8 @@ let secondChoice = null;
 let cardsLeftToMatch = 12;
 let score = 0;
 let attempts = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
 attemptsText.innerText = attempts;
 scoreText.innerText = score;
 
@@ -131,11 +137,13 @@ addEventListener("click", (event) => {
       const firstCard = firstChoice;
       event.target.classList.remove("hidden");
       event.target.classList.add("used");
+      event.target.classList.add("selected");
       event.target.innerText = event.target.dataset.emoji;
       console.log("first");
     } else if (secondChoice === null) {
       secondChoice = event.target;
       event.target.classList.remove("hidden");
+      event.target.classList.add("selected");
       event.target.innerText = event.target.dataset.emoji;
       attempts = attempts + 1;
       attemptsText.innerText = attempts;
@@ -143,12 +151,30 @@ addEventListener("click", (event) => {
 
       if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
         cardsLeftToMatch = cardsLeftToMatch - 1;
+
+        if (Player1 === true) {
+          scorePlayer1 = scorePlayer1 + 1;
+          Player1 = false;
+          Player2 = true;
+        }
+
+        if (Player2 === true) {
+          scorePlayer2 = scorePlayer2 + 1;
+          Player1 = true;
+          Player2 = false;
+        }
+
         score = score + 1;
         scoreText.innerText = score;
         const firstCard = firstChoice;
         const secondCard = secondChoice;
         firstCard.classList.add("used");
         secondCard.classList.add("used");
+        setTimeout(() => {
+          firstCard.classList.remove("selected");
+          secondCard.classList.remove("selected");
+        }, 600);
+
         if (cardsLeftToMatch === 0) {
           window.alert("Bravo !");
         }
@@ -164,9 +190,11 @@ addEventListener("click", (event) => {
           firstCard.classList.add("hidden");
           firstCard.classList.remove("used");
           secondCard.classList.add("hidden");
+          firstCard.classList.remove("selected");
+          secondCard.classList.remove("selected");
           firstChoice = null;
           secondChoice = null;
-        }, 1000);
+        }, 600);
       }
     } else {
     }
@@ -179,3 +207,11 @@ restarter.addEventListener("click", () => {
   });
   location.reload();
 });
+
+if (Player1 === true) {
+  firstPlayer.innerText = "Au joueur 1 de jouer";
+}
+
+if (Player2 === true) {
+  secondPlayer.innerText = "Au joueur 2 de jouer";
+}

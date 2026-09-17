@@ -1,0 +1,6 @@
+{
+  "images": [
+    { "id": 1, "nom": "chat", "src": "./images/meme1.webp" },
+    { "id": 2, "nom": "chien", "src": "./images/meme2.jpg" }
+  ]
+}
