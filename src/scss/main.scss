@@ -114,3 +114,39 @@ button:hover {
   transition: box-shadow ease-in-out 0.1s;
   box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
 }
+
+#second-player {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+}
+
+#first-player {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 30px;
+}
+
+#score-second-player {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  position: fixed;
+  bottom: 40px;
+  left: 30px;
+}
+
+#score-first-player {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+}
+
+.disabled {
+  pointer-events: none;
+}

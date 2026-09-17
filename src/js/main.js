@@ -6,14 +6,17 @@ const attemptsText = document.querySelector("#attempts");
 const restarter = document.querySelector("button");
 const firstPlayer = document.querySelector("#first-player");
 const secondPlayer = document.querySelector("#second-player");
+const scoreFirstPlayer = document.querySelector("#score-first-player");
+const scoreSecondPlayer = document.querySelector("#score-second-player");
+const content = document.querySelector("#content");
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
 let Execute2 = false;
 let Execute3 = false;
 let Execute4 = false;
-let Player1 = true;
-let Player2 = false;
+let Player1 = false;
+let Player2 = true;
 const emojis = [
   "👄",
   "🧚‍♀️",
@@ -40,6 +43,9 @@ const emojis = [
   "🌻",
   "🐝",
 ];
+scoreFirstPlayer.innerText = "0";
+scoreSecondPlayer.innerText = "0";
+firstPlayer.innerText = "Au joueur 1 de jouer";
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -124,7 +130,7 @@ let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = 12;
 let score = 0;
-let attempts = 0;
+let attempts = "";
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
 attemptsText.innerText = attempts;
@@ -145,21 +151,25 @@ addEventListener("click", (event) => {
       event.target.classList.remove("hidden");
       event.target.classList.add("selected");
       event.target.innerText = event.target.dataset.emoji;
-      attempts = attempts + 1;
+      // attempts = attempts + 1;
       attemptsText.innerText = attempts;
       console.log("second");
 
       if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
         cardsLeftToMatch = cardsLeftToMatch - 1;
+        scoreFirstPlayer.innerText = scorePlayer1;
+        scoreSecondPlayer.innerText = scorePlayer2;
 
         if (Player1 === true) {
           scorePlayer1 = scorePlayer1 + 1;
+          scoreFirstPlayer.innerText = scorePlayer1;
+          scoreSecondPlayer.innerText = scorePlayer2;
           Player1 = false;
           Player2 = true;
-        }
-
-        if (Player2 === true) {
+        } else if (Player2 === true) {
           scorePlayer2 = scorePlayer2 + 1;
+          scoreFirstPlayer.innerText = scorePlayer1;
+          scoreSecondPlayer.innerText = scorePlayer2;
           Player1 = true;
           Player2 = false;
         }
@@ -176,14 +186,31 @@ addEventListener("click", (event) => {
         }, 600);
 
         if (cardsLeftToMatch === 0) {
-          window.alert("Bravo !");
+          if (scorePlayer1 < scorePlayer2) {
+            window.alert("Bravo ! Victoire du joueur 2");
+          } else if (scorePlayer1 === scorePlayer2) {
+            window.alert("Egalité");
+          } else {
+            window.alert("Bravo ! Victoire du joueur 1");
+          }
         }
         firstChoice = null;
         secondChoice = null;
       } else {
         const firstCard = firstChoice;
         const secondCard = secondChoice;
-
+        if (Player1 === true) {
+          firstPlayer.innerText = "Au joueur 1 de jouer";
+          secondPlayer.innerText = "";
+          Player1 = false;
+          Player2 = true;
+        } else if (Player2 === true) {
+          firstPlayer.innerText = "";
+          secondPlayer.innerText = "Au joueur 2 de jouer";
+          Player1 = true;
+          Player2 = false;
+        }
+        content.classList.add("disabled");
         setTimeout(() => {
           firstCard.innerText = "";
           secondCard.innerText = "";
@@ -192,6 +219,7 @@ addEventListener("click", (event) => {
           secondCard.classList.add("hidden");
           firstCard.classList.remove("selected");
           secondCard.classList.remove("selected");
+          content.classList.remove("disabled");
           firstChoice = null;
           secondChoice = null;
         }, 600);
@@ -207,11 +235,3 @@ restarter.addEventListener("click", () => {
   });
   location.reload();
 });
-
-if (Player1 === true) {
-  firstPlayer.innerText = "Au joueur 1 de jouer";
-}
-
-if (Player2 === true) {
-  secondPlayer.innerText = "Au joueur 2 de jouer";
-}
