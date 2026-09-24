@@ -150,3 +150,8 @@ button:hover {
 .disabled {
   pointer-events: none;
 }
+
+.menu-hidden,
+.content-hidden {
+  display: none;
+}
