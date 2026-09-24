@@ -15,8 +15,18 @@ let Execute1 = false;
 let Execute2 = false;
 let Execute3 = false;
 let Execute4 = false;
-let Player1 = false;
-let Player2 = true;
+let currentPlayer = 1;
+
+const updateTurnText = () => {
+  if (currentPlayer === 1) {
+    firstPlayer.innerText = "Au joueur 1 de jouer";
+    secondPlayer.innerText = "";
+  } else {
+    firstPlayer.innerText = "";
+    secondPlayer.innerText = "Au joueur 2 de jouer";
+  }
+};
+
 const emojis = [
   "👄",
   "🧚‍♀️",
@@ -45,7 +55,7 @@ const emojis = [
 ];
 scoreFirstPlayer.innerText = "0";
 scoreSecondPlayer.innerText = "0";
-firstPlayer.innerText = "Au joueur 1 de jouer";
+updateTurnText();
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -160,18 +170,12 @@ addEventListener("click", (event) => {
         scoreFirstPlayer.innerText = scorePlayer1;
         scoreSecondPlayer.innerText = scorePlayer2;
 
-        if (Player1 === true) {
+        if (currentPlayer === 1) {
           scorePlayer1 = scorePlayer1 + 1;
           scoreFirstPlayer.innerText = scorePlayer1;
-          scoreSecondPlayer.innerText = scorePlayer2;
-          Player1 = false;
-          Player2 = true;
-        } else if (Player2 === true) {
+        } else {
           scorePlayer2 = scorePlayer2 + 1;
-          scoreFirstPlayer.innerText = scorePlayer1;
           scoreSecondPlayer.innerText = scorePlayer2;
-          Player1 = true;
-          Player2 = false;
         }
 
         score = score + 1;
@@ -199,17 +203,10 @@ addEventListener("click", (event) => {
       } else {
         const firstCard = firstChoice;
         const secondCard = secondChoice;
-        if (Player1 === true) {
-          firstPlayer.innerText = "Au joueur 1 de jouer";
-          secondPlayer.innerText = "";
-          Player1 = false;
-          Player2 = true;
-        } else if (Player2 === true) {
-          firstPlayer.innerText = "";
-          secondPlayer.innerText = "Au joueur 2 de jouer";
-          Player1 = true;
-          Player2 = false;
-        }
+
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        updateTurnText();
+
         content.classList.add("disabled");
         setTimeout(() => {
           firstCard.innerText = "";
