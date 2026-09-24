@@ -3,13 +3,15 @@ const card = document.createElement("div");
 const cheat = document.querySelector("#cheat");
 const scoreText = document.querySelector("#score");
 const attemptsText = document.querySelector("#attempts");
-const restarter = document.querySelector("button");
+const restarter = document.querySelector("#btn-restart");
 const firstPlayer = document.querySelector("#first-player");
 const secondPlayer = document.querySelector("#second-player");
 const scoreFirstPlayer = document.querySelector("#score-first-player");
 const scoreSecondPlayer = document.querySelector("#score-second-player");
 const content = document.querySelector("#content-game");
-const multiPlayers = false;
+const menuSolo = document.querySelector("#menu-btn-solo");
+const menuMulti = document.querySelector("#menu-btn-multi");
+let multiPlayers = false;
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
@@ -69,10 +71,18 @@ const shuffle = (array) => {
   return array;
 };
 
+restarter.addEventListener("click", () => {
+  addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+  });
+  location.reload();
+});
+
 shuffle(emojis).forEach((emoji) => {
   const card = document.createElement("div");
   card.classList.add("card");
   card.classList.add("hidden");
+  card.classList.add("content-hidden");
 
   card.dataset.emoji = emoji;
 
@@ -227,9 +237,4 @@ addEventListener("click", (event) => {
   }
 });
 
-restarter.addEventListener("click", () => {
-  addEventListener("beforeunload", (event) => {
-    event.preventDefault();
-  });
-  location.reload();
-});
+menuSolo.addEventListener;
