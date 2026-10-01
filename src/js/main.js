@@ -3,6 +3,7 @@ const card = document.createElement("div");
 const cheat = document.querySelector("#cheat");
 const scoreText = document.querySelector("#score");
 const scoreMax = document.querySelector(".score-max");
+const scoreTotal = document.querySelector("#score-total");
 const attemptsText = document.querySelector("#attempts");
 const restarter = document.querySelector("#btn-restart");
 const firstPlayer = document.querySelector("#first-player");
@@ -46,22 +47,23 @@ const emojis = [
   "🌵",
   "🌻",
   "🐝",
-  "👄",
-  "🧚‍♀️",
-  "💩",
-  "🐢",
-  "🤡",
-  "👁️",
-  "🐤",
-  "🙊",
-  "🌽",
-  "🌵",
-  "🌻",
-  "🐝",
+  "🍉",
+  "🦋",
+  "🐙",
+  "🐸",
+  "🐳",
+  "🦄",
+  "👑",
+  "🦦",
+  "🦐",
+  "🐒",
+  "🪼",
+  "🙆‍♂️",
+  "🥔",
 ];
 
 const updateRangeValue = () => {
-  rangeValue.textContent = `${inputRange.value} paires`;
+  rangeValue.textContent = `${inputRange.value} cartes`;
 };
 
 const updateTurnText = () => {
@@ -134,6 +136,20 @@ const shuffle = (array) => {
   return array;
 };
 
+const createBoard = (pairCount) => {
+  board.replaceChildren();
+
+  const selectedPairs = shuffle([...emojis]).slice(0, pairCount);
+  const selectedCards = shuffle([...selectedPairs, ...selectedPairs]);
+
+  selectedCards.forEach((emoji) => {
+    const card = document.createElement("div");
+    card.classList.add("card", "hidden");
+    card.dataset.emoji = emoji;
+    board.appendChild(card);
+  });
+};
+
 startButton.addEventListener("click", () => {
   const playerSelection = document.querySelector(
     'input[name="players-select"]:checked',
@@ -143,6 +159,15 @@ startButton.addEventListener("click", () => {
     window.alert("Veuillez sélectionner un mode de jeu.");
     return;
   }
+
+  const pairCount = Number(inputRange.value) / 2;
+  createBoard(pairCount);
+  cardsLeftToMatch = pairCount;
+  score = 0;
+  attempts = 0;
+  scoreText.innerText = score;
+  scoreTotal.innerText = pairCount;
+  attemptsText.innerText = attempts;
 
   selectedMode = playerSelection.value;
   multiPlayers = selectedMode === "duo";
@@ -167,16 +192,6 @@ restarter.addEventListener("click", () => {
     event.preventDefault();
   });
   location.reload();
-});
-
-shuffle(emojis).forEach((emoji) => {
-  const card = document.createElement("div");
-  card.classList.add("card");
-  card.classList.add("hidden");
-
-  card.dataset.emoji = emoji;
-
-  board.appendChild(card);
 });
 
 if (isActiveCheat === false) {

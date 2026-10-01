@@ -14,13 +14,13 @@
           Sélectionne le mode de jeu et la difficulté que tu veux
         </p>
         <div>
-          <label for="card-range">Choisissez une valeur :</label>
+          <label for="card-range">Nombre de cartes :</label>
           <div class="range">
             <input
               type="range"
               id="card-range"
               min="2"
-              max="36"
+              max="50"
               value="2"
               step="2"
             />
@@ -55,7 +55,9 @@
     <div id="content-game">
       <p id="attempts"></p>
       <p id="cheat"></p>
-      <p class="score-max"><span id="score"></span>/12</p>
+      <p class="score-max">
+        <span id="score"></span>/<span id="score-total">12</span>
+      </p>
       <div id="board"></div>
       <div id="first-player"></div>
       <div id="score-first-player"></div>
