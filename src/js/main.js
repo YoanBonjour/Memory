@@ -23,16 +23,13 @@ let Execute2 = false;
 let Execute3 = false;
 let Execute4 = false;
 let currentPlayer = 1;
-
-const updateTurnText = () => {
-  if (currentPlayer === 1) {
-    firstPlayer.innerText = "Au joueur 1 de jouer";
-    secondPlayer.innerText = "";
-  } else {
-    firstPlayer.innerText = "";
-    secondPlayer.innerText = "Au joueur 2 de jouer";
-  }
-};
+let firstChoice = null;
+let secondChoice = null;
+let cardsLeftToMatch = 12;
+let score = 0;
+let attempts = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
 
 const emojis = [
   "👄",
@@ -60,27 +57,47 @@ const emojis = [
   "🌻",
   "🐝",
 ];
-scoreFirstPlayer.innerText = "0";
-scoreSecondPlayer.innerText = "0";
-updateTurnText();
 
-const shuffle = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+const updateTurnText = () => {
+  if (currentPlayer === 1) {
+    firstPlayer.innerText = "Au joueur 1 de jouer";
+    secondPlayer.innerText = "";
+  } else {
+    firstPlayer.innerText = "";
+    secondPlayer.innerText = "Au joueur 2 de jouer";
   }
-
-  return array;
 };
 
-restarter.addEventListener("click", () => {
-  addEventListener("beforeunload", (event) => {
-    event.preventDefault();
-  });
-  location.reload();
-});
+const duoMode = () => {
+  card.classList.remove("content-hidden");
+  restarter.classList.remove("content-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  board.classList.remove("content-hidden");
+  menuSolo.classList.add("menu-hidden");
+  menuDuo.classList.add("menu-hidden");
+  menu.classList.add("menu-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  scoreFirstPlayer.classList.remove("content-hidden");
+  scoreSecondPlayer.classList.remove("content-hidden");
+  firstPlayer.classList.remove("content-hidden");
+  secondPlayer.classList.remove("content-hidden");
+  console.log("actvie duo");
+};
+
+const soloMode = () => {
+  card.classList.remove("content-hidden");
+  restarter.classList.remove("content-hidden");
+  attemptsText.classList.remove("content-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  board.classList.remove("content-hidden");
+  menuSolo.classList.add("menu-hidden");
+  menuDuo.classList.add("menu-hidden");
+  menu.classList.add("menu-hidden");
+  console.log("actvie solo");
+};
 
 card.classList.add("content-hidden");
 restarter.classList.add("content-hidden");
@@ -94,6 +111,57 @@ scoreMax.classList.add("content-hidden");
 board.classList.add("content-hidden");
 menuSolo.classList.remove("menu-hidden");
 menuDuo.classList.remove("menu-hidden");
+scoreFirstPlayer.innerText = "0";
+scoreSecondPlayer.innerText = "0";
+attemptsText.innerText = attempts;
+scoreText.innerText = score;
+updateTurnText();
+
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+};
+
+startButton.addEventListener("click", () => {
+  const playerSelection = document.querySelector(
+    'input[name="players-select"]:checked',
+  );
+
+  if (!playerSelection) {
+    window.alert("Veuillez sélectionner un mode de jeu.");
+    return;
+  }
+
+  selectedMode = playerSelection.value;
+  multiPlayers = selectedMode === "duo";
+
+  if (selectedMode === "solo") {
+    soloMode();
+  } else {
+    duoMode();
+  }
+});
+
+menuSolo.addEventListener("click", () => {
+  startButton.classList.remove("btn-disabled");
+});
+
+menuDuo.addEventListener("click", () => {
+  startButton.classList.remove("btn-disabled");
+});
+
+restarter.addEventListener("click", () => {
+  addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+  });
+  location.reload();
+});
 
 shuffle(emojis).forEach((emoji) => {
   const card = document.createElement("div");
@@ -163,16 +231,6 @@ setInterval(() => {
   }
 }, 100);
 
-let firstChoice = null;
-let secondChoice = null;
-let cardsLeftToMatch = 12;
-let score = 0;
-let attempts = 0;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
-attemptsText.innerText = attempts;
-scoreText.innerText = score;
-
 addEventListener("click", (event) => {
   if (event.target.matches(".card")) {
     if (firstChoice === null) {
@@ -180,13 +238,32 @@ addEventListener("click", (event) => {
       const firstCard = firstChoice;
       event.target.classList.remove("hidden");
       event.target.classList.add("used");
-      event.target.classList.add("selected");
+      if (selectedMode === "solo") {
+        firstCard.classList.add("selected");
+      } else {
+        if (currentPlayer === 1) {
+          firstCard.classList.add("selected-player1");
+        } else {
+          firstCard.classList.add("selected-player2");
+        }
+      }
+
       event.target.innerText = event.target.dataset.emoji;
       console.log("first");
     } else if (secondChoice === null) {
       secondChoice = event.target;
+      const firstCard = firstChoice;
+      const secondCard = secondChoice;
       event.target.classList.remove("hidden");
-      event.target.classList.add("selected");
+      if (selectedMode === "solo") {
+        secondCard.classList.add("selected");
+      } else {
+        if (currentPlayer === 1) {
+          secondCard.classList.add("selected-player1");
+        } else {
+          secondCard.classList.add("selected-player2");
+        }
+      }
       event.target.innerText = event.target.dataset.emoji;
       attempts = attempts + 1;
       attemptsText.innerText = attempts;
@@ -207,11 +284,13 @@ addEventListener("click", (event) => {
 
         score = score + 1;
         scoreText.innerText = score;
-        const firstCard = firstChoice;
-        const secondCard = secondChoice;
         firstCard.classList.add("used");
         secondCard.classList.add("used");
         setTimeout(() => {
+          firstCard.classList.remove("selected-player1");
+          firstCard.classList.remove("selected-player2");
+          secondCard.classList.remove("selected-player1");
+          secondCard.classList.remove("selected-player2");
           firstCard.classList.remove("selected");
           secondCard.classList.remove("selected");
         }, 600);
@@ -228,9 +307,6 @@ addEventListener("click", (event) => {
         firstChoice = null;
         secondChoice = null;
       } else {
-        const firstCard = firstChoice;
-        const secondCard = secondChoice;
-
         currentPlayer = currentPlayer === 1 ? 2 : 1;
         updateTurnText();
 
@@ -240,9 +316,11 @@ addEventListener("click", (event) => {
           secondCard.innerText = "";
           firstCard.classList.add("hidden");
           firstCard.classList.remove("used");
+          firstCard.classList.remove("selected-player1");
+          firstCard.classList.remove("selected-player2");
           secondCard.classList.add("hidden");
-          firstCard.classList.remove("selected");
-          secondCard.classList.remove("selected");
+          secondCard.classList.remove("selected-player1");
+          secondCard.classList.remove("selected-player2");
           content.classList.remove("disabled");
           firstChoice = null;
           secondChoice = null;
@@ -251,63 +329,4 @@ addEventListener("click", (event) => {
     } else {
     }
   }
-});
-
-const soloMode = () => {
-  card.classList.remove("content-hidden");
-  restarter.classList.remove("content-hidden");
-  attemptsText.classList.remove("content-hidden");
-  scoreText.classList.remove("content-hidden");
-  scoreMax.classList.remove("content-hidden");
-  board.classList.remove("content-hidden");
-  menuSolo.classList.add("menu-hidden");
-  menuDuo.classList.add("menu-hidden");
-  menu.classList.add("menu-hidden");
-  console.log("actvie solo");
-};
-
-const duoMode = () => {
-  card.classList.remove("content-hidden");
-  restarter.classList.remove("content-hidden");
-  scoreText.classList.remove("content-hidden");
-  scoreMax.classList.remove("content-hidden");
-  board.classList.remove("content-hidden");
-  menuSolo.classList.add("menu-hidden");
-  menuDuo.classList.add("menu-hidden");
-  menu.classList.add("menu-hidden");
-  scoreText.classList.remove("content-hidden");
-  scoreMax.classList.remove("content-hidden");
-  scoreFirstPlayer.classList.remove("content-hidden");
-  scoreSecondPlayer.classList.remove("content-hidden");
-  firstPlayer.classList.remove("content-hidden");
-  secondPlayer.classList.remove("content-hidden");
-  console.log("actvie duo");
-};
-
-startButton.addEventListener("click", () => {
-  const playerSelection = document.querySelector(
-    'input[name="players-select"]:checked',
-  );
-
-  if (!playerSelection) {
-    window.alert("Veuillez sélectionner un mode de jeu.");
-    return;
-  }
-
-  selectedMode = playerSelection.value;
-  multiPlayers = selectedMode === "duo";
-
-  if (selectedMode === "solo") {
-    soloMode();
-  } else {
-    duoMode();
-  }
-});
-
-menuSolo.addEventListener("click", () => {
-  startButton.classList.remove("btn-disabled");
-});
-
-menuDuo.addEventListener("click", () => {
-  startButton.classList.remove("btn-disabled");
 });

@@ -129,12 +129,25 @@ button:hover {
   box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
 }
 
+.selected-player1 {
+  border: 2px solid rgb(71, 177, 177);
+  transition: box-shadow ease-in-out 0.1s;
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+}
+
+.selected-player2 {
+  border: 2px solid rgb(199, 83, 83);
+  transition: box-shadow ease-in-out 0.1s;
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+}
+
 #second-player {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   position: fixed;
   bottom: 20px;
   right: 30px;
+  color: #c75353;
 }
 
 #first-player {
@@ -143,22 +156,25 @@ button:hover {
   position: fixed;
   bottom: 20px;
   left: 30px;
+  color: #47b1b1;
 }
 
 #score-first-player {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 30px;
   position: fixed;
   bottom: 40px;
   left: 30px;
+  color: #47b1b1;
 }
 
 #score-second-player {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 30px;
   position: fixed;
   bottom: 40px;
   right: 30px;
+  color: #c75353;
 }
 
 .disabled {
