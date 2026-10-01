@@ -13,8 +13,20 @@
         <p class="menu-text">
           Sélectionne le mode de jeu et la difficulté que tu veux
         </p>
-
-        <input type="range" id="monRange" min="0" max="100" value="50" />
+        <div>
+          <label for="card-range">Choisissez une valeur :</label>
+          <div class="range">
+            <input
+              type="range"
+              id="card-range"
+              min="2"
+              max="36"
+              value="2"
+              step="2"
+            />
+            <span id="range-value"></span>
+          </div>
+        </div>
         <div class="menu-btn">
           <div class="menu-btn-players">
             <label class="btn" id="menu-btn-solo">

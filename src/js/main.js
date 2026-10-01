@@ -14,6 +14,8 @@ const menuSolo = document.querySelector("#menu-btn-solo");
 const menuDuo = document.querySelector("#menu-btn-duo");
 const startButton = document.querySelector(".menu-btn-start");
 const menu = document.querySelector(".menu");
+const inputRange = document.getElementById("card-range");
+const rangeValue = document.getElementById("range-value");
 let multiPlayers = false;
 let selectedMode = null;
 let activeCheat = 0;
@@ -57,6 +59,10 @@ const emojis = [
   "🌻",
   "🐝",
 ];
+
+const updateRangeValue = () => {
+  rangeValue.textContent = `${inputRange.value} paires`;
+};
 
 const updateTurnText = () => {
   if (currentPlayer === 1) {
@@ -314,6 +320,8 @@ addEventListener("click", (event) => {
         setTimeout(() => {
           firstCard.innerText = "";
           secondCard.innerText = "";
+          firstCard.classList.remove("selected");
+          secondCard.classList.remove("selected");
           firstCard.classList.add("hidden");
           firstCard.classList.remove("used");
           firstCard.classList.remove("selected-player1");
@@ -322,6 +330,7 @@ addEventListener("click", (event) => {
           secondCard.classList.remove("selected-player1");
           secondCard.classList.remove("selected-player2");
           content.classList.remove("disabled");
+
           firstChoice = null;
           secondChoice = null;
         }, 600);
@@ -330,3 +339,6 @@ addEventListener("click", (event) => {
     }
   }
 });
+
+inputRange.addEventListener("input", updateRangeValue);
+updateRangeValue();
