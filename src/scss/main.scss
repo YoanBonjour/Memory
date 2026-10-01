@@ -111,12 +111,16 @@ button,
 
 #btn-restart {
   position: fixed;
-  justify-self: center;
+  right: 50vw;
   bottom: 20px;
 }
 
 button:hover {
   background-color: rgb(53, 132, 132);
+}
+
+.menu-btn-start:hover {
+  background-color: #c5c5c5;
 }
 
 .selected {

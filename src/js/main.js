@@ -13,6 +13,7 @@ const content = document.querySelector("#content-game");
 const menuSolo = document.querySelector("#menu-btn-solo");
 const menuDuo = document.querySelector("#menu-btn-duo");
 const startButton = document.querySelector(".menu-btn-start");
+const menu = document.querySelector(".menu");
 let multiPlayers = false;
 let selectedMode = null;
 let activeCheat = 0;
@@ -81,22 +82,23 @@ restarter.addEventListener("click", () => {
   location.reload();
 });
 
+card.classList.add("content-hidden");
+restarter.classList.add("content-hidden");
+scoreFirstPlayer.classList.add("content-hidden");
+scoreSecondPlayer.classList.add("content-hidden");
+firstPlayer.classList.add("content-hidden");
+secondPlayer.classList.add("content-hidden");
+attemptsText.classList.add("content-hidden");
+scoreText.classList.add("content-hidden");
+scoreMax.classList.add("content-hidden");
+board.classList.add("content-hidden");
+menuSolo.classList.remove("menu-hidden");
+menuDuo.classList.remove("menu-hidden");
+
 shuffle(emojis).forEach((emoji) => {
   const card = document.createElement("div");
   card.classList.add("card");
   card.classList.add("hidden");
-  card.classList.add("content-hidden");
-  restarter.classList.add("content-hidden");
-  scoreFirstPlayer.classList.add("content-hidden");
-  scoreSecondPlayer.classList.add("content-hidden");
-  firstPlayer.classList.add("content-hidden");
-  secondPlayer.classList.add("content-hidden");
-  attemptsText.classList.add("content-hidden");
-  scoreText.classList.add("content-hidden");
-  scoreMax.classList.add("content-hidden");
-  board;
-  menuSolo.classList.remove("menu-hidden");
-  menuDuo.classList.remove("menu-hidden");
 
   card.dataset.emoji = emoji;
 
@@ -165,7 +167,7 @@ let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = 12;
 let score = 0;
-let attempts = "";
+let attempts = 0;
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
 attemptsText.innerText = attempts;
@@ -186,7 +188,7 @@ addEventListener("click", (event) => {
       event.target.classList.remove("hidden");
       event.target.classList.add("selected");
       event.target.innerText = event.target.dataset.emoji;
-      // attempts = attempts + 1;
+      attempts = attempts + 1;
       attemptsText.innerText = attempts;
       console.log("second");
 
@@ -251,6 +253,37 @@ addEventListener("click", (event) => {
   }
 });
 
+const soloMode = () => {
+  card.classList.remove("content-hidden");
+  restarter.classList.remove("content-hidden");
+  attemptsText.classList.remove("content-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  board.classList.remove("content-hidden");
+  menuSolo.classList.add("menu-hidden");
+  menuDuo.classList.add("menu-hidden");
+  menu.classList.add("menu-hidden");
+  console.log("actvie solo");
+};
+
+const duoMode = () => {
+  card.classList.remove("content-hidden");
+  restarter.classList.remove("content-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  board.classList.remove("content-hidden");
+  menuSolo.classList.add("menu-hidden");
+  menuDuo.classList.add("menu-hidden");
+  menu.classList.add("menu-hidden");
+  scoreText.classList.remove("content-hidden");
+  scoreMax.classList.remove("content-hidden");
+  scoreFirstPlayer.classList.remove("content-hidden");
+  scoreSecondPlayer.classList.remove("content-hidden");
+  firstPlayer.classList.remove("content-hidden");
+  secondPlayer.classList.remove("content-hidden");
+  console.log("actvie duo");
+};
+
 startButton.addEventListener("click", () => {
   const playerSelection = document.querySelector(
     'input[name="players-select"]:checked',
@@ -263,6 +296,12 @@ startButton.addEventListener("click", () => {
 
   selectedMode = playerSelection.value;
   multiPlayers = selectedMode === "duo";
+
+  if (selectedMode === "solo") {
+    soloMode();
+  } else {
+    duoMode();
+  }
 });
 
 menuSolo.addEventListener("click", () => {
