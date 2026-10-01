@@ -2,6 +2,7 @@ const board = document.querySelector("#board");
 const card = document.createElement("div");
 const cheat = document.querySelector("#cheat");
 const scoreText = document.querySelector("#score");
+const scoreMax = document.querySelector(".score-max");
 const attemptsText = document.querySelector("#attempts");
 const restarter = document.querySelector("#btn-restart");
 const firstPlayer = document.querySelector("#first-player");
@@ -10,7 +11,7 @@ const scoreFirstPlayer = document.querySelector("#score-first-player");
 const scoreSecondPlayer = document.querySelector("#score-second-player");
 const content = document.querySelector("#content-game");
 const menuSolo = document.querySelector("#menu-btn-solo");
-const menuMulti = document.querySelector("#menu-btn-multi");
+const menuDuo = document.querySelector("#menu-btn-duo");
 let multiPlayers = false;
 let activeCheat = 0;
 let isActiveCheat = false;
@@ -83,6 +84,17 @@ shuffle(emojis).forEach((emoji) => {
   card.classList.add("card");
   card.classList.add("hidden");
   card.classList.add("content-hidden");
+  restarter.classList.add("content-hidden");
+  scoreFirstPlayer.classList.add("content-hidden");
+  scoreSecondPlayer.classList.add("content-hidden");
+  firstPlayer.classList.add("content-hidden");
+  secondPlayer.classList.add("content-hidden");
+  attemptsText.classList.add("content-hidden");
+  scoreText.classList.add("content-hidden");
+  scoreMax.classList.add("content-hidden");
+  board;
+  menuSolo.classList.remove("menu-hidden");
+  menuDuo.classList.remove("menu-hidden");
 
   card.dataset.emoji = emoji;
 

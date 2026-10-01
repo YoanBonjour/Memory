@@ -8,8 +8,16 @@
   </head>
   <body>
     <div class="menu">
-      <button id="menu-btn-solo">Solo</button>
-      <button id="menu-btn-multi">Multiplayers</button>
+      <h1>Bienvenue !</h1>
+      <p>Sélectionne le mode de jeu et la difficulté que tu veux</p>
+      <input type="range" id="monRange" min="0" max="100" value="50" />
+      <div class="menu-btn">
+        <div class="menu-btn-players">
+          <button id="menu-btn-solo">Solo</button>
+          <button id="menu-btn-duo">Duo</button>
+        </div>
+        <button class="menu-btn-start">Commencer</button>
+      </div>
     </div>
     <div id="content-game">
       <p id="attempts"></p>
@@ -21,7 +29,6 @@
       <button id="btn-restart">Recommencer</button>
       <div id="second-player"></div>
       <div id="score-second-player"></div>
-      <input type="range" id="monRange" min="0" max="100" value="50" />
       <span id="affichage"></span>
     </div>
     <script src="js/main.js" type="module"></script>

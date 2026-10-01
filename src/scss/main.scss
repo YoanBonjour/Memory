@@ -100,6 +100,9 @@ button {
   box-shadow: 7px 7px 0px rgba(0, 0, 0, 1);
   background-color: rgb(71, 177, 177);
   color: #fff;
+}
+
+#btn-restart {
   position: fixed;
   justify-self: center;
   bottom: 20px;
@@ -151,7 +154,55 @@ button:hover {
   pointer-events: none;
 }
 
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+
 .menu-hidden,
 .content-hidden {
   display: none;
+}
+
+#menu-btn-solo {
+  position: relative;
+}
+
+#menu-btn-duo {
+  position: relative;
+}
+
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.menu-btn-players {
+  display: flex;
+  width: 100%;
+  gap: 50px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-btn-players button {
+  background-color: #e6b258;
+  color: black;
+}
+
+:hover#menu-btn-solo,
+:hover#menu-btn-duo {
+  background-color: #9b793e;
+}
+
+.menu-btn-start {
+  align-self: flex-end;
+  font-size: 24px;
 }
