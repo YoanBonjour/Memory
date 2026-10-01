@@ -8,15 +8,36 @@
   </head>
   <body>
     <div class="menu">
-      <h1>Bienvenue !</h1>
-      <p>Sélectionne le mode de jeu et la difficulté que tu veux</p>
-      <input type="range" id="monRange" min="0" max="100" value="50" />
-      <div class="menu-btn">
-        <div class="menu-btn-players">
-          <button id="menu-btn-solo">Solo</button>
-          <button id="menu-btn-duo">Duo</button>
+      <h1 class="menu-title">Bienvenue !</h1>
+      <div class="menu-select">
+        <p class="menu-text">
+          Sélectionne le mode de jeu et la difficulté que tu veux
+        </p>
+
+        <input type="range" id="monRange" min="0" max="100" value="50" />
+        <div class="menu-btn">
+          <div class="menu-btn-players">
+            <label class="btn" id="menu-btn-solo">
+              <input
+                type="radio"
+                name="players-select"
+                value="solo"
+                class="menu-hidden"
+              />
+              <span>Solo</span>
+            </label>
+            <label class="btn" id="menu-btn-duo">
+              <input
+                type="radio"
+                name="players-select"
+                value="duo"
+                class="menu-hidden"
+              />
+              <span>Duo</span>
+            </label>
+          </div>
+          <button class="menu-btn-start btn-disabled">Commencer</button>
         </div>
-        <button class="menu-btn-start">Commencer</button>
       </div>
     </div>
     <div id="content-game">

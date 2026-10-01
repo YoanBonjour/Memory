@@ -12,7 +12,9 @@ const scoreSecondPlayer = document.querySelector("#score-second-player");
 const content = document.querySelector("#content-game");
 const menuSolo = document.querySelector("#menu-btn-solo");
 const menuDuo = document.querySelector("#menu-btn-duo");
+const startButton = document.querySelector(".menu-btn-start");
 let multiPlayers = false;
+let selectedMode = null;
 let activeCheat = 0;
 let isActiveCheat = false;
 let Execute1 = false;
@@ -249,4 +251,24 @@ addEventListener("click", (event) => {
   }
 });
 
-menuSolo.addEventListener;
+startButton.addEventListener("click", () => {
+  const playerSelection = document.querySelector(
+    'input[name="players-select"]:checked',
+  );
+
+  if (!playerSelection) {
+    window.alert("Veuillez sélectionner un mode de jeu.");
+    return;
+  }
+
+  selectedMode = playerSelection.value;
+  multiPlayers = selectedMode === "duo";
+});
+
+menuSolo.addEventListener("click", () => {
+  startButton.classList.remove("btn-disabled");
+});
+
+menuDuo.addEventListener("click", () => {
+  startButton.classList.remove("btn-disabled");
+});

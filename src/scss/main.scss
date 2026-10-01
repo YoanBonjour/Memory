@@ -88,7 +88,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-button {
+button,
+.btn {
+  font-family: arial, sans-serif;
   border: 2px solid black;
   border-radius: 10px;
   display: flex;
@@ -100,6 +102,11 @@ button {
   box-shadow: 7px 7px 0px rgba(0, 0, 0, 1);
   background-color: rgb(71, 177, 177);
   color: #fff;
+}
+
+.btn-disabled {
+  background-color: #c5c5c5;
+  color: #818181;
 }
 
 #btn-restart {
@@ -205,4 +212,60 @@ button:hover {
 .menu-btn-start {
   align-self: flex-end;
   font-size: 24px;
+}
+
+.menu-text {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+
+.menu-title {
+  font-size: 50px;
+  font-family: arial, sans-serif;
+}
+
+.menu-select {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-color: #d6ccbf;
+  padding: 30px 40px;
+  border-radius: 20px;
+}
+
+.menu-btn-players .btn:has(input:checked) {
+  background-color: #e6b258;
+  color: #000;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 18px;
+  border-radius: 50px;
+  background: #fcf2e5;
+  outline: none;
+  border: 2px solid black;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #47b1b1;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
+  border: 2px solid black;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #47b1b1;
+  cursor: pointer;
+  border: none;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
+  border: 2px solid black;
 }
