@@ -17,6 +17,9 @@ const startButton = document.querySelector(".menu-btn-start");
 const menu = document.querySelector(".menu");
 const inputRange = document.getElementById("card-range");
 const rangeValue = document.getElementById("range-value");
+const mobilInterface = document.querySelector(".mobil-interface");
+const removeBorderFirst = document.querySelector(".remove-border-first");
+const removeBorderSecond = document.querySelector(".remove-border-second");
 let multiPlayers = false;
 let selectedMode = null;
 let activeCheat = 0;
@@ -63,16 +66,20 @@ const emojis = [
 ];
 
 const updateRangeValue = () => {
-  rangeValue.textContent = `${inputRange.value} cartes`;
+  rangeValue.textContent = `${inputRange.value} cards`;
 };
 
 const updateTurnText = () => {
   if (currentPlayer === 1) {
-    firstPlayer.innerText = "Au joueur 1 de jouer";
+    firstPlayer.innerText = "";
     secondPlayer.innerText = "";
+    removeBorderFirst.classList.remove("remove-border-first");
+    removeBorderSecond.classList.add("remove-border-second");
   } else {
     firstPlayer.innerText = "";
-    secondPlayer.innerText = "Au joueur 2 de jouer";
+    secondPlayer.innerText = "";
+    removeBorderFirst.classList.add("remove-border-first");
+    removeBorderSecond.classList.remove("remove-border-second");
   }
 };
 
@@ -91,6 +98,7 @@ const duoMode = () => {
   scoreSecondPlayer.classList.remove("content-hidden");
   firstPlayer.classList.remove("content-hidden");
   secondPlayer.classList.remove("content-hidden");
+  mobilInterface.classList.remove("content-hidden");
   console.log("actvie duo");
 };
 
@@ -124,6 +132,8 @@ scoreSecondPlayer.innerText = "0";
 attemptsText.innerText = attempts;
 scoreText.innerText = score;
 updateTurnText();
+removeBorderFirst.classList.remove("removeBorderFirst");
+removeBorderSecond.classList.add("removeBorderSecond");
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -156,7 +166,7 @@ startButton.addEventListener("click", () => {
   );
 
   if (!playerSelection) {
-    window.alert("Veuillez sélectionner un mode de jeu.");
+    window.alert("Please select a game mode.");
     return;
   }
 
@@ -252,7 +262,7 @@ setInterval(() => {
   }
 }, 100);
 
-addEventListener("click", (event) => {
+board.addEventListener("pointerup", (event) => {
   if (event.target.matches(".card")) {
     if (firstChoice === null) {
       firstChoice = event.target;
@@ -318,11 +328,11 @@ addEventListener("click", (event) => {
 
         if (cardsLeftToMatch === 0) {
           if (scorePlayer1 < scorePlayer2) {
-            window.alert("Bravo ! Victoire du joueur 2");
+            window.alert("Well done ! Victory for the red player");
           } else if (scorePlayer1 === scorePlayer2) {
             window.alert("Egalité");
           } else {
-            window.alert("Bravo ! Victoire du joueur 1");
+            window.alert("Well done ! Victory for the blue player");
           }
         }
         firstChoice = null;

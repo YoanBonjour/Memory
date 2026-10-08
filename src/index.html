@@ -8,13 +8,11 @@
   </head>
   <body>
     <div class="menu">
-      <h1 class="menu-title">Bienvenue !</h1>
+      <h1 class="menu-title">Memory Game</h1>
       <div class="menu-select">
-        <p class="menu-text">
-          Sélectionne le mode de jeu et la difficulté que tu veux
-        </p>
+        <p class="menu-text">Select the difficulty and game mode you want</p>
         <div>
-          <label for="card-range">Nombre de cartes :</label>
+          <label for="card-range">Number of cards :</label>
           <div class="range">
             <input
               type="range"
@@ -48,8 +46,9 @@
               <span>Duo</span>
             </label>
           </div>
-          <button class="menu-btn-start btn-disabled">Commencer</button>
+          <button class="menu-btn-start btn-disabled">Play</button>
         </div>
+        <p class="credit">Made by a human ♡</p>
       </div>
     </div>
     <div id="content-game">
@@ -59,12 +58,18 @@
         <span id="score"></span>/<span id="score-total">12</span>
       </p>
       <div id="board"></div>
-      <div id="first-player"></div>
-      <div id="score-first-player"></div>
-      <button id="btn-restart">Recommencer</button>
-      <div id="second-player"></div>
-      <div id="score-second-player"></div>
-      <span id="affichage"></span>
+      <div class="mobil-interface content-hidden">
+        <div id="first-player"></div>
+        <div class="player-highlight-first remove-border-first">
+          <div id="score-first-player"></div>
+        </div>
+        <div id="second-player"></div>
+        <div class="player-highlight-second remove-border-second">
+          <div id="score-second-player"></div>
+        </div>
+        <span id="affichage"></span>
+      </div>
+      <button id="btn-restart">Restart</button>
     </div>
     <script src="js/main.js" type="module"></script>
   </body>
