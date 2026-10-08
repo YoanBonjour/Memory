@@ -99,7 +99,7 @@ const duoMode = () => {
   firstPlayer.classList.remove("content-hidden");
   secondPlayer.classList.remove("content-hidden");
   mobilInterface.classList.remove("content-hidden");
-  console.log("actvie duo");
+  mobilInterface.classList.remove("solo-interface");
 };
 
 const soloMode = () => {
@@ -112,7 +112,8 @@ const soloMode = () => {
   menuSolo.classList.add("menu-hidden");
   menuDuo.classList.add("menu-hidden");
   menu.classList.add("menu-hidden");
-  console.log("actvie solo");
+  mobilInterface.classList.add("solo-interface");
+  mobilInterface.classList.remove("content-hidden");
 };
 
 card.classList.add("content-hidden");
@@ -217,30 +218,21 @@ if (isActiveCheat === false) {
       Execute3 = false;
       Execute4 = false;
       activeCheat = 0;
-      console.log("C'est pas une carte !", event.target.dataset.emoji);
     }
     if (event.target.matches(".card:nth-child(1)") && Execute1 === false) {
-      console.log("C'est la carte 1 !", event.target.dataset.emoji);
       activeCheat = activeCheat + 1;
-      console.log(activeCheat);
       Execute1 = true;
     }
     if (event.target.matches(".card:nth-child(2)") && Execute2 === false) {
-      console.log("C'est la carte 2 !", event.target.dataset.emoji);
       activeCheat = activeCheat + 1;
-      console.log(activeCheat);
       Execute2 = true;
     }
     if (event.target.matches(".card:nth-child(3)") && Execute3 === false) {
-      console.log("C'est la carte 3 !", event.target.dataset.emoji);
       activeCheat = activeCheat + 1;
-      console.log(activeCheat);
       Execute3 = true;
     }
     if (event.target.matches(".card:nth-child(4)") && Execute4 === false) {
-      console.log("C'est la carte 4 !", event.target.dataset.emoji);
       activeCheat = activeCheat + 1;
-      console.log(activeCheat);
       Execute4 = true;
     }
   });
@@ -254,7 +246,6 @@ setInterval(() => {
   if (isActiveCheat === true) {
     addEventListener("mouseover", (card) => {
       cheat.innerText = card.target.dataset.emoji;
-      console.log(card.target.dataset.emoji);
       if (card.target.dataset.emoji === undefined) {
         cheat.innerText = "";
       }
@@ -280,7 +271,6 @@ board.addEventListener("pointerup", (event) => {
       }
 
       event.target.innerText = event.target.dataset.emoji;
-      console.log("first");
     } else if (secondChoice === null) {
       secondChoice = event.target;
       const firstCard = firstChoice;
@@ -298,7 +288,6 @@ board.addEventListener("pointerup", (event) => {
       event.target.innerText = event.target.dataset.emoji;
       attempts = attempts + 1;
       attemptsText.innerText = attempts;
-      console.log("second");
 
       if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
         cardsLeftToMatch = cardsLeftToMatch - 1;

@@ -43,6 +43,10 @@ body {
   pointer-events: none;
 }
 
+.mobil-interface.solo-interface > * {
+  display: none;
+}
+
 @media (max-width: 600px) {
   #board {
     padding: 80px 16px 140px;
