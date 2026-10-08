@@ -118,6 +118,7 @@ button,
 .btn-disabled {
   background-color: #c5c5c5;
   color: #818181;
+  pointer-events: none;
 }
 
 #btn-restart {

@@ -316,12 +316,16 @@ board.addEventListener("pointerup", (event) => {
         }, 600);
 
         if (cardsLeftToMatch === 0) {
-          if (scorePlayer1 < scorePlayer2) {
-            window.alert("Well done ! Victory for the red player");
-          } else if (scorePlayer1 === scorePlayer2) {
-            window.alert("Egalité");
+          if (selectedMode === "solo") {
+            window.alert("Well done ! You’ve found all the pairs");
           } else {
-            window.alert("Well done ! Victory for the blue player");
+            if (scorePlayer1 < scorePlayer2) {
+              window.alert("Well done ! Victory for the red player");
+            } else if (scorePlayer1 === scorePlayer2) {
+              window.alert("Hmm, I don’t think there’s a winner");
+            } else {
+              window.alert("Well done ! Victory for the blue player");
+            }
           }
         }
         firstChoice = null;
